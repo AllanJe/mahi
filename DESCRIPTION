@@ -1,0 +1,19 @@
+Package: mahi
+Type: Package
+Title: Group lasso based selection for high-dimensional mediation analysis
+Version: 0.1.0
+Author: person(given = "Allan",
+           family = "Jerolon",
+           role = c("aut", "cre"),
+           email = "jerolona@gmail.com")
+Maintainer: The package maintainer <jerolona@gmail.com>
+Description: Select mediators variables with one or more exposures.
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+Imports:
+  utils,
+  MASS,
+  stats,
+  multimediate
+RoxygenNote: 7.2.3
