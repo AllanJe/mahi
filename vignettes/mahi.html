@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>mahi</title>
+
+<script src="data:application/javascript;base64,Ly8gUGFuZG9jIDIuOSBhZGRzIGF0dHJpYnV0ZXMgb24gYm90aCBoZWFkZXIgYW5kIGRpdi4gV2UgcmVtb3ZlIHRoZSBmb3JtZXIgKHRvCi8vIGJlIGNvbXBhdGlibGUgd2l0aCB0aGUgYmVoYXZpb3Igb2YgUGFuZG9jIDwgMi44KS4KZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcignRE9NQ29udGVudExvYWRlZCcsIGZ1bmN0aW9uKGUpIHsKICB2YXIgaHMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKCJkaXYuc2VjdGlvbltjbGFzcyo9J2xldmVsJ10gPiA6Zmlyc3QtY2hpbGQiKTsKICB2YXIgaSwgaCwgYTsKICBmb3IgKGkgPSAwOyBpIDwgaHMubGVuZ3RoOyBpKyspIHsKICAgIGggPSBoc1tpXTsKICAgIGlmICghL15oWzEtNl0kL2kudGVzdChoLnRhZ05hbWUpKSBjb250aW51ZTsgIC8vIGl0IHNob3VsZCBiZSBhIGhlYWRlciBoMS1oNgogICAgYSA9IGguYXR0cmlidXRlczsKICAgIHdoaWxlIChhLmxlbmd0aCA+IDApIGgucmVtb3ZlQXR0cmlidXRlKGFbMF0ubmFtZSk7CiAgfQp9KTsK"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<link rel="stylesheet" href="data:text/css,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" type="text/css" />
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">mahi</h1>
+
+
+
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(multimediate)</span></code></pre></div>
+<p>Simulation of high dimensional data</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>nbrsamples <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="co"># number of datasets to simulate</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">100</span> <span class="co"># number of observationsn , n = 300</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="dv">500</span><span class="co">#0 # number of mediators, p = 500, 1000 and 5000</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>,p) <span class="co"># exposure --&gt; mediators</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>beta <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>,p) <span class="co"># mediators --&gt; outcome</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>gamma <span class="ot">&lt;-</span> <span class="fl">0.5</span> <span class="co"># exposure --&gt; outcome</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>c <span class="ot">&lt;-</span> <span class="fl">0.2</span> <span class="co"># intercept term in the outcome model</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co"># true mediators</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 10 easy to predict</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>alpha[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.95</span>, <span class="fl">0.90</span>, <span class="fl">0.95</span>, <span class="fl">0.95</span>, <span class="sc">-</span><span class="fl">1.0</span>, <span class="fl">0.95</span>, <span class="sc">-</span><span class="fl">0.95</span>, <span class="fl">0.85</span>, <span class="sc">-</span><span class="fl">0.95</span>, <span class="sc">-</span><span class="fl">1.0</span>)<span class="sc">*</span><span class="dv">10</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>beta[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">1.85</span>, <span class="sc">-</span><span class="fl">1.95</span>, <span class="fl">1.90</span>, <span class="fl">1.85</span>, <span class="sc">-</span><span class="fl">1.90</span>, <span class="fl">1.85</span>, <span class="fl">1.95</span>, <span class="sc">-</span><span class="fl">1.90</span>, <span class="fl">1.0</span>, <span class="fl">1.85</span>)<span class="sc">*</span><span class="dv">10</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 10 middle easy to predict</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>alpha[<span class="dv">11</span><span class="sc">:</span><span class="dv">20</span>] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.55</span>, <span class="fl">0.65</span>, <span class="sc">-</span><span class="fl">0.70</span>, <span class="fl">0.50</span>, <span class="sc">-</span><span class="fl">0.75</span>, <span class="fl">0.60</span>, <span class="sc">-</span><span class="fl">0.65</span>, <span class="fl">0.55</span>, <span class="fl">0.60</span>, <span class="fl">0.70</span>)<span class="sc">*</span><span class="dv">5</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>beta[<span class="dv">11</span><span class="sc">:</span><span class="dv">20</span>] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.65</span>, <span class="sc">-</span><span class="fl">0.50</span>, <span class="fl">0.75</span>, <span class="sc">-</span><span class="fl">0.60</span>, <span class="fl">0.70</span>, <span class="sc">-</span><span class="fl">0.55</span>, <span class="fl">0.75</span>, <span class="sc">-</span><span class="fl">0.65</span>, <span class="fl">0.65</span>, <span class="sc">-</span><span class="fl">0.55</span>)<span class="sc">*</span><span class="dv">5</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co"># 10 hard to predict</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>alpha[<span class="dv">21</span><span class="sc">:</span><span class="dv">30</span>] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.35</span>, <span class="fl">0.25</span>, <span class="sc">-</span><span class="fl">0.15</span>, <span class="sc">-</span><span class="fl">0.10</span>, <span class="fl">0.20</span>, <span class="sc">-</span><span class="fl">0.35</span>, <span class="fl">0.05</span>, <span class="sc">-</span><span class="fl">0.45</span>, <span class="fl">0.15</span>, <span class="sc">-</span><span class="fl">0.10</span>)<span class="sc">*</span><span class="fl">2.5</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>beta[<span class="dv">21</span><span class="sc">:</span><span class="dv">30</span>] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.15</span>, <span class="sc">-</span><span class="fl">0.10</span>, <span class="fl">0.25</span>, <span class="sc">-</span><span class="fl">0.45</span>, <span class="fl">0.30</span>, <span class="fl">0.10</span>, <span class="sc">-</span><span class="fl">0.20</span>, <span class="fl">0.15</span>, <span class="sc">-</span><span class="fl">0.25</span>, <span class="fl">0.30</span>)<span class="sc">*</span><span class="fl">2.5</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="co"># not true mediators</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>alpha[<span class="dv">31</span><span class="sc">:</span><span class="dv">40</span>] <span class="ot">&lt;-</span> <span class="fl">0.25</span><span class="sc">*</span><span class="dv">10</span> <span class="co"># betas are zero</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>beta[<span class="dv">41</span><span class="sc">:</span><span class="dv">50</span>] <span class="ot">&lt;-</span> <span class="fl">0.45</span><span class="sc">*</span><span class="dv">10</span> <span class="co"># alphas are zero</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>simdatasets <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="co"># In the following : X = exposure, M = mediators, Y = outcome, C = confounder</span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (s <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>nbrsamples) {</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>  ck <span class="ot">&lt;-</span> <span class="fu">t</span>(<span class="fu">runif</span>(p, <span class="sc">-</span><span class="dv">2</span>, <span class="dv">2</span>)) <span class="co"># intercept term of the mediator models</span></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>  M <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, n, p) <span class="co"># matrix that contains the mediators</span></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>  X <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="fu">runif</span>(n, <span class="dv">0</span>, <span class="dv">1</span>) <span class="sc">&lt;</span> <span class="fl">0.5</span>, <span class="dv">0</span>, <span class="dv">1</span>) <span class="co"># binary exposure vector</span></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>  <span class="co">#C &lt;- rnorm(n, 0, 0) # confounder effect (only one for now)</span></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>  <span class="co">#ksi1 &lt;- rnorm(p, 0, 0) # regression coefficient of confounder effect --&gt; M, </span></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>  <span class="co"># different coeff in front of each mediator, but not different from one individual to the other</span></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span> <span class="sc">:</span> n) {</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>    e <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(p, <span class="dv">0</span>, <span class="fl">1.5</span>) <span class="co"># error term of the mediator models</span></span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>    M[i,] <span class="ot">&lt;-</span> ck <span class="sc">+</span> X[i] <span class="sc">*</span> alpha <span class="sc">+</span> e<span class="co">#+ C[i]*ksi1 + e  </span></span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Each mediator model contains one confounder effect,</span></span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>    <span class="co">#same value for all mediators p, but different value from an individual to the other</span></span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">colnames</span>(M) <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">&quot;M&quot;</span>, <span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(M))</span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>  XM <span class="ot">&lt;-</span> <span class="fu">cbind</span>(X, M)  <span class="co">#  [X M]</span></span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>  epsilon <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="fl">1.5</span>) <span class="co"># error term of the outcome model</span></span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>  ksi2 <span class="ot">&lt;-</span> <span class="fl">0.1</span> <span class="co"># regression coefficient of confounder effect --&gt; Y</span></span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>  B <span class="ot">&lt;-</span> <span class="fu">c</span>(gamma, beta)  <span class="co"># (p+1) times 1</span></span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>  Y <span class="ot">&lt;-</span> c <span class="sc">+</span> XM <span class="sc">%*%</span> <span class="fu">t</span>(<span class="fu">t</span>(B)) <span class="sc">+</span> <span class="fu">t</span>(<span class="fu">t</span>(epsilon))<span class="co">#+ C*ksi2 + t(t(epsilon)) #  the response vector</span></span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Y &lt;- matrix(rbinom(n, 1, 1/(1 + exp(-Y))), nrow = n) # binary outcome</span></span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>simdatasets[[s]] <span class="ot">&lt;-</span> <span class="fu">cbind</span>(X, M, Y)<span class="co">#, C)</span></span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>   </span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (s <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>nbrsamples) {</span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>  simdatasets[[s]] <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(simdatasets[[s]])</span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>  <span class="fu">colnames</span>(simdatasets[[s]])[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="st">&quot;X&quot;</span> <span class="co"># renaming the exposure as X</span></span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>  <span class="fu">colnames</span>(simdatasets[[s]])[p<span class="sc">+</span><span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="st">&quot;Y&quot;</span> <span class="co"># renaming the outcome as Y</span></span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Before using the function mahi we have to choose a value for lambda using lambdaChoice function. We have to set a max for lambda with lambdamax. The returned value is less than lambdamax and allows you to select a mediator number between selectedMin and selectedMax. The value of selectedMax must be less than or equal to the number of individuals n. If the value of lambdamax is not hifh enough you will have this message.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>datahigh<span class="ot">=</span>simdatasets[[<span class="dv">1</span>]]</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>n<span class="ot">=</span><span class="fu">dim</span>(datahigh)[<span class="dv">1</span>] <span class="co">#sample number</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>P<span class="ot">=</span><span class="dv">1</span> <span class="co">#number of treatment</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>treatment<span class="ot">=</span><span class="fu">matrix</span>(datahigh<span class="sc">$</span>X,n,P)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>mediators<span class="ot">=</span><span class="fu">as.matrix</span>(datahigh[,<span class="fu">paste0</span>(<span class="st">&quot;M&quot;</span>, <span class="dv">1</span><span class="sc">:</span>p)])</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>outcome<span class="ot">=</span>datahigh<span class="sc">$</span>Y</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  lambda <span class="ot">&lt;-</span> <span class="fu">lambdaChoice</span>(datahigh,<span class="at">name.exposure=</span><span class="st">&quot;X&quot;</span>,<span class="at">name.outcome=</span><span class="st">&quot;Y&quot;</span>,<span class="at">name.mediators=</span><span class="fu">paste0</span>(<span class="st">&quot;M&quot;</span>, <span class="dv">1</span><span class="sc">:</span>p),<span class="at">lambdamax=</span><span class="dv">10</span>,<span class="at">selectedMin=</span>n<span class="sc">/</span><span class="dv">2</span>,<span class="at">selectedMax=</span>n,<span class="at">L0=</span>.<span class="dv">1</span>,<span class="at">eta=</span><span class="dv">2</span>,<span class="at">tau=</span><span class="dv">1</span><span class="sc">/</span>P,<span class="at">epsilon=</span>.<span class="dv">001</span>)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;choose a greater lambdamax&quot;</span></span></code></pre></div>
+<p>You have to choose a greater value, for example here 300.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>lambda <span class="ot">&lt;-</span> <span class="fu">lambdaChoice</span>(datahigh,<span class="at">name.exposure=</span><span class="st">&quot;X&quot;</span>,<span class="at">name.outcome=</span><span class="st">&quot;Y&quot;</span>,<span class="at">name.mediators=</span><span class="fu">paste0</span>(<span class="st">&quot;M&quot;</span>, <span class="dv">1</span><span class="sc">:</span>p),<span class="at">lambdamax=</span><span class="dv">500</span>,<span class="at">selectedMin=</span>n<span class="sc">/</span><span class="dv">2</span>,<span class="at">selectedMax=</span>n,<span class="at">L0=</span>.<span class="dv">1</span>,<span class="at">eta=</span><span class="dv">2</span>,<span class="at">tau=</span><span class="dv">1</span><span class="sc">/</span>P,<span class="at">epsilon=</span>.<span class="dv">001</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>lambda</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 140.625</span></span></code></pre></div>
+<p>Now you can use the mahi function for the selection</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>  mahifit <span class="ot">&lt;-</span> <span class="fu">mahi</span>(<span class="at">data=</span>datahigh,<span class="at">name.exposure=</span><span class="st">&quot;X&quot;</span>,<span class="at">name.outcome=</span><span class="st">&quot;Y&quot;</span>,<span class="at">name.mediators=</span><span class="fu">paste0</span>(<span class="st">&quot;M&quot;</span>, <span class="dv">1</span><span class="sc">:</span>p),</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">lambda=</span>lambda,<span class="at">Nboot=</span><span class="dv">30</span>,<span class="at">L0=</span>.<span class="dv">1</span>,<span class="at">eta=</span><span class="dv">2</span>,<span class="at">tau=</span><span class="dv">1</span><span class="sc">/</span>P,<span class="at">epsilon=</span>.<span class="dv">001</span>,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">Kmax=</span><span class="cn">NULL</span>,<span class="at">bin=</span><span class="cn">FALSE</span>,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">step2=</span><span class="cn">TRUE</span>,<span class="at">p.adjust.method=</span><span class="st">&quot;hochberg&quot;</span>,<span class="at">pvalseuil=</span><span class="fl">0.05</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mahifit)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Resulst for the mahi selection with n = 100 and p = 500 </span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  </span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  The Kmax =  43.42945 first potentials mediators after stability selection are : </span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  M1 M7 M8 M9 M10 M2 M3 M5 M6 M4 M13 M20 M37 M17 M16 M32 M15 M18 M12 M31 M36 M39 M80 M110 M423 M34 M161 M275 M332 M472 M11 M19 M33 M38 M300 M379 M398 M23 M35 M40 M282 M138 M224 </span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; The multiple mediation analysis with the previous potentials mediators.              . Estimation    IC.inf    IC.sup P.val</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1    ACME.joint  -267.3239 -409.1926 -131.1545 0.000</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2      PM.joint     0.7770    0.3799    1.1803 0.000</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3       ACME.M1  -212.9928 -253.4935 -173.1689 0.000</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4         PM.M1     0.6262    0.4901    0.7778 0.000</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5       ACME.M7  -161.6643 -204.7502 -124.6194 0.000</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6         PM.M7     0.4717    0.3588    0.6236 0.000</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7       ACME.M8  -152.7736 -192.8447 -117.3996 0.000</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8         PM.M8     0.4483    0.3357    0.5718 0.000</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9       ACME.M9   -93.3947 -138.0611  -51.0175 0.000</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10        PM.M9     0.2758    0.1442    0.4135 0.000</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 11     ACME.M10  -171.0014 -218.1248 -127.2333 0.000</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 12       PM.M10     0.5022    0.3674    0.6502 0.000</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 13      ACME.M2  -188.0259 -238.2724 -135.2092 0.000</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 14        PM.M2     0.5536    0.4003    0.7184 0.000</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 15      ACME.M3   155.6799  109.2593  198.0885 0.000</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 16        PM.M3    -0.4609   -0.5955   -0.3195 0.000</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 17      ACME.M5   224.0727  182.3411  265.1368 0.000</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 18        PM.M5    -0.6549   -0.8035   -0.5169 0.000</span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 19      ACME.M6   208.6377  166.5645  250.8460 0.000</span></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 20        PM.M6    -0.6157   -0.7650   -0.4724 0.000</span></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 21      ACME.M4   160.9924  121.2216  199.6724 0.000</span></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 22        PM.M4    -0.4738   -0.6149   -0.3502 0.000</span></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 23     ACME.M13   -16.2908  -32.6165   -1.5828 0.028</span></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 24       PM.M13     0.0469    0.0047    0.0977 0.028</span></span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 25     ACME.M20    -3.1911  -16.6241    9.9489 0.674</span></span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 26       PM.M20     0.0090   -0.0299    0.0489 0.674</span></span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 27     ACME.M37   -12.2702  -24.7577   -0.1286 0.046</span></span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 28       PM.M37     0.0354    0.0004    0.0728 0.046</span></span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 29     ACME.M17     1.2760  -17.4918   20.6161 0.924</span></span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 30       PM.M17    -0.0033   -0.0632    0.0516 0.924</span></span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 31     ACME.M16   -11.0228  -23.1692    0.2126 0.058</span></span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 32       PM.M16     0.0323   -0.0006    0.0697 0.058</span></span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 33     ACME.M32    10.6695   -1.6215   25.0583 0.082</span></span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 34       PM.M32    -0.0304   -0.0754    0.0049 0.082</span></span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 35     ACME.M15    -6.0699  -24.1770   12.0042 0.514</span></span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 36       PM.M15     0.0171   -0.0349    0.0715 0.514</span></span>
+<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 37     ACME.M18    -5.9196  -17.5746    6.3633 0.328</span></span>
+<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 38       PM.M18     0.0182   -0.0194    0.0526 0.328</span></span>
+<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 39     ACME.M12    -2.1466  -14.0561   10.9225 0.728</span></span>
+<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 40       PM.M12     0.0061   -0.0337    0.0411 0.728</span></span>
+<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 41     ACME.M31    -1.5717  -11.6366    8.5385 0.744</span></span>
+<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 42       PM.M31     0.0046   -0.0256    0.0354 0.744</span></span>
+<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 43     ACME.M36     5.7900   -3.4659   15.3466 0.240</span></span>
+<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 44       PM.M36    -0.0164   -0.0463    0.0098 0.240</span></span>
+<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 45     ACME.M39    -3.7359  -15.2528    6.9121 0.524</span></span>
+<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 46       PM.M39     0.0104   -0.0207    0.0454 0.524</span></span>
+<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 47     ACME.M80     0.1369   -1.9137    2.4041 0.864</span></span>
+<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 48       PM.M80    -0.0002   -0.0071    0.0056 0.864</span></span>
+<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 49    ACME.M110     0.1503   -1.3463    2.0243 0.866</span></span>
+<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 50      PM.M110    -0.0002   -0.0059    0.0038 0.866</span></span>
+<span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 51    ACME.M423     0.1464   -1.4873    2.1262 0.876</span></span>
+<span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 52      PM.M423    -0.0001   -0.0064    0.0044 0.876</span></span>
+<span id="cb6-59"><a href="#cb6-59" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 53     ACME.M34     0.1580  -10.5496   11.7007 0.960</span></span>
+<span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 54       PM.M34    -0.0006   -0.0339    0.0310 0.960</span></span>
+<span id="cb6-61"><a href="#cb6-61" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 55    ACME.M161    -0.8734   -4.7780    2.1845 0.588</span></span>
+<span id="cb6-62"><a href="#cb6-62" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 56      PM.M161     0.0020   -0.0066    0.0140 0.588</span></span>
+<span id="cb6-63"><a href="#cb6-63" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 57    ACME.M275    -0.2241   -2.7728    1.9653 0.860</span></span>
+<span id="cb6-64"><a href="#cb6-64" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 58      PM.M275     0.0002   -0.0059    0.0084 0.860</span></span>
+<span id="cb6-65"><a href="#cb6-65" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 59    ACME.M332     1.0992   -1.6385    4.8175 0.448</span></span>
+<span id="cb6-66"><a href="#cb6-66" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 60      PM.M332    -0.0026   -0.0142    0.0049 0.448</span></span>
+<span id="cb6-67"><a href="#cb6-67" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 61    ACME.M472     0.3013   -1.9673    2.8709 0.788</span></span>
+<span id="cb6-68"><a href="#cb6-68" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 62      PM.M472    -0.0004   -0.0084    0.0057 0.788</span></span>
+<span id="cb6-69"><a href="#cb6-69" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 63     ACME.M11   -11.4450  -21.5568   -2.8344 0.006</span></span>
+<span id="cb6-70"><a href="#cb6-70" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 64       PM.M11     0.0331    0.0081    0.0650 0.006</span></span>
+<span id="cb6-71"><a href="#cb6-71" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 65     ACME.M19     7.4447   -5.1064   21.2660 0.246</span></span>
+<span id="cb6-72"><a href="#cb6-72" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 66       PM.M19    -0.0219   -0.0612    0.0157 0.246</span></span>
+<span id="cb6-73"><a href="#cb6-73" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 67     ACME.M33     3.9061   -5.1399   13.1163 0.396</span></span>
+<span id="cb6-74"><a href="#cb6-74" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 68       PM.M33    -0.0111   -0.0386    0.0151 0.396</span></span>
+<span id="cb6-75"><a href="#cb6-75" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 69     ACME.M38    -0.0488   -9.5329    8.7622 0.958</span></span>
+<span id="cb6-76"><a href="#cb6-76" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 70       PM.M38    -0.0009   -0.0257    0.0283 0.958</span></span>
+<span id="cb6-77"><a href="#cb6-77" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 71    ACME.M300    -0.2607   -2.6644    1.6982 0.776</span></span>
+<span id="cb6-78"><a href="#cb6-78" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 72      PM.M300     0.0003   -0.0047    0.0081 0.776</span></span>
+<span id="cb6-79"><a href="#cb6-79" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 73    ACME.M379     0.4049   -1.1266    2.6472 0.646</span></span>
+<span id="cb6-80"><a href="#cb6-80" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 74      PM.M379    -0.0006   -0.0076    0.0033 0.646</span></span>
+<span id="cb6-81"><a href="#cb6-81" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 75    ACME.M398    -0.4874   -2.7912    1.4657 0.592</span></span>
+<span id="cb6-82"><a href="#cb6-82" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 76      PM.M398     0.0009   -0.0045    0.0086 0.592</span></span>
+<span id="cb6-83"><a href="#cb6-83" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 77     ACME.M23     1.0003   -1.3971    4.4083 0.436</span></span>
+<span id="cb6-84"><a href="#cb6-84" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 78       PM.M23    -0.0022   -0.0129    0.0042 0.436</span></span>
+<span id="cb6-85"><a href="#cb6-85" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 79     ACME.M35     2.3907   -8.8209   13.6794 0.694</span></span>
+<span id="cb6-86"><a href="#cb6-86" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 80       PM.M35    -0.0070   -0.0410    0.0259 0.694</span></span>
+<span id="cb6-87"><a href="#cb6-87" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 81     ACME.M40     3.5093   -7.3973   14.3096 0.506</span></span>
+<span id="cb6-88"><a href="#cb6-88" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 82       PM.M40    -0.0101   -0.0423    0.0224 0.506</span></span>
+<span id="cb6-89"><a href="#cb6-89" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 83    ACME.M282     0.0028   -1.6783    1.6244 0.986</span></span>
+<span id="cb6-90"><a href="#cb6-90" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 84      PM.M282     0.0000   -0.0050    0.0048 0.986</span></span>
+<span id="cb6-91"><a href="#cb6-91" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 85    ACME.M138    -0.0022   -1.5633    1.5715 1.000</span></span>
+<span id="cb6-92"><a href="#cb6-92" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 86      PM.M138     0.0000   -0.0046    0.0046 1.000</span></span>
+<span id="cb6-93"><a href="#cb6-93" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 87    ACME.M224     0.3200   -1.7972    2.8484 0.734</span></span>
+<span id="cb6-94"><a href="#cb6-94" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 88      PM.M224    -0.0005   -0.0083    0.0055 0.734</span></span>
+<span id="cb6-95"><a href="#cb6-95" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 89          ADE   -73.1030 -211.6381   60.0614 0.314</span></span>
+<span id="cb6-96"><a href="#cb6-96" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 90 Total Effect  -340.4268 -376.6834 -303.0816 0.000</span></span>
+<span id="cb6-97"><a href="#cb6-97" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; The corrected p-values using the p.adjust.method specified are : </span></span>
+<span id="cb6-98"><a href="#cb6-98" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  0 0 0 0 0 0 0 0 0 0 0.896 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0.198 1 1 1 1 1 1 1 1 1 1 1 1</span></span></code></pre></div>
+<p>The function mahi returns a list containing several results such as the mediators selected in the first step.</p>
+<p>To see the mediators selected after the step 1, use :</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>  mahifit<span class="sc">$</span>Kmaxrank</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1] &quot;M1&quot;   &quot;M7&quot;   &quot;M8&quot;   &quot;M9&quot;   &quot;M10&quot;  &quot;M2&quot;   &quot;M3&quot;   &quot;M5&quot;   &quot;M6&quot;   &quot;M4&quot;  </span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [11] &quot;M13&quot;  &quot;M20&quot;  &quot;M37&quot;  &quot;M17&quot;  &quot;M16&quot;  &quot;M32&quot;  &quot;M15&quot;  &quot;M18&quot;  &quot;M12&quot;  &quot;M31&quot; </span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [21] &quot;M36&quot;  &quot;M39&quot;  &quot;M80&quot;  &quot;M110&quot; &quot;M423&quot; &quot;M34&quot;  &quot;M161&quot; &quot;M275&quot; &quot;M332&quot; &quot;M472&quot;</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [31] &quot;M11&quot;  &quot;M19&quot;  &quot;M33&quot;  &quot;M38&quot;  &quot;M300&quot; &quot;M379&quot; &quot;M398&quot; &quot;M23&quot;  &quot;M35&quot;  &quot;M40&quot; </span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [41] &quot;M282&quot; &quot;M138&quot; &quot;M224&quot;</span></span></code></pre></div>
+<p>Remember that the first 30 candidates are the real mediators. The first 10 (1 to 10) have a strong mediated effect, the next 10 (11 to 20) have a medium mediated effect, and the other 10 (21 to 30) have a very weak effect.</p>
+<p>To see the mediators count for each mediator after the stability selection (step 1), use :</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>  mahifit<span class="sc">$</span>bootcount</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   [1] 30 29 29 28 29 29 30 30 30 30 18 21 28  7 24 25 26 24 18 27 12  3 17  7  6</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [26]  3  3 10  3  7 21 25 18 20 17 21 27 18 21 17  3  2  9  8  2 14  8  2  8  2</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [51]  3  2  4  4 13  4  2  4  4  2  3 12  6  4  6  7  6  5  3  5 11  5  5  4  9</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [76]  3 11  3  6 21  5 11  3  4  3  2  2 14  7  5  3  9  6 12 11  3  6  4  4  3</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [101]  3 11  8  3  7 12  3  2  4 21  8  5  3  3  2  2 12  5  4  4  3  3  1  2  2</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [126]  3 12 11  3  4  9  4  3 14  4  2  5 16  6  7  3 12  3  8  2  6  6  7  4  4</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [151]  2  6  3  3  3  5  4  5  6  3 19  5  2  6  4  4  5  3  9  5  3  3  2  5  4</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [176]  8  4  5  6  4 13  7  3  8  3  3  7  6  9  4  8  3 12  5 12 12  2 11  5  2</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [201]  4  2  7  2  7  3 12  2  2  2  4  3  3  7  2  5  3  4  2  5  3  9  5 16  3</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [226] 12  3  8  7  4  2  8  2 15 13  4  7  5  4  4 16  2  7  5  3  2  4  3  3  9</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [251]  3  3  4  2 11  5  7  2  3  4  6 12  5 14  3  8  9  4  8 10  7  3  2  5 19</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [276]  3  5  4  4  2  3 17  2 13  4  7  2 15  4 12  4  2  3  5  2 13  5  2 13 18</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [301]  1  3  7  3  9  7  3  6  3  5 10 11  3  7  3 11  5  5 14  9  4  3 10  5  3</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [326] 11  2  4  5  3 11 19 14  2  5  3  3  5  5  5  2  9  3  2 15 12 10  3 11 10</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [351]  2  3  8  3  3  2  6  9  3  3  2  2  4 15  3  2  7 10  2  4  7  2  4  8  3</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [376] 12  4  8 18  6  2  2  3  4  4  3 12 12  5  6  4  3  4  4  6  3  7 18  2  8</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [401] 16  2  2  4  6  7  8  3  8  3 11  4  4  4  7  6  3  2  2  9  6  3 21  3  5</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [426]  7  3  5  3  2  3  2  3  8 11 14  2  3  8  3  3  3  2  7  2  3  6  6  2 11</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [451]  5  3  4  4  3  5  3  4  6 10  2  8  2  7  7  3  4  4  2  5  3 19  6 15  2</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [476]  2  2  7  6  5  7  1 11  7  7  2  7  4  7  8 15  5 11  2  6  2  3  4  8  9</span></span></code></pre></div>
+<p>To see the ranking after the stability selection (step 1), use :</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>mahifit<span class="sc">$</span>ranking</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   [1] &quot;M1&quot;   &quot;M7&quot;   &quot;M8&quot;   &quot;M9&quot;   &quot;M10&quot;  &quot;M2&quot;   &quot;M3&quot;   &quot;M5&quot;   &quot;M6&quot;   &quot;M4&quot;  </span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [11] &quot;M13&quot;  &quot;M20&quot;  &quot;M37&quot;  &quot;M17&quot;  &quot;M16&quot;  &quot;M32&quot;  &quot;M15&quot;  &quot;M18&quot;  &quot;M12&quot;  &quot;M31&quot; </span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [21] &quot;M36&quot;  &quot;M39&quot;  &quot;M80&quot;  &quot;M110&quot; &quot;M423&quot; &quot;M34&quot;  &quot;M161&quot; &quot;M275&quot; &quot;M332&quot; &quot;M472&quot;</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [31] &quot;M11&quot;  &quot;M19&quot;  &quot;M33&quot;  &quot;M38&quot;  &quot;M300&quot; &quot;M379&quot; &quot;M398&quot; &quot;M23&quot;  &quot;M35&quot;  &quot;M40&quot; </span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [41] &quot;M282&quot; &quot;M138&quot; &quot;M224&quot; &quot;M241&quot; &quot;M401&quot; &quot;M234&quot; &quot;M288&quot; &quot;M345&quot; &quot;M364&quot; &quot;M474&quot;</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [51] &quot;M491&quot; &quot;M46&quot;  &quot;M88&quot;  &quot;M134&quot; &quot;M264&quot; &quot;M319&quot; &quot;M333&quot; &quot;M436&quot; &quot;M55&quot;  &quot;M181&quot;</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [61] &quot;M235&quot; &quot;M284&quot; &quot;M296&quot; &quot;M299&quot; &quot;M21&quot;  &quot;M62&quot;  &quot;M94&quot;  &quot;M106&quot; &quot;M117&quot; &quot;M127&quot;</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [71] &quot;M142&quot; &quot;M193&quot; &quot;M195&quot; &quot;M196&quot; &quot;M207&quot; &quot;M226&quot; &quot;M262&quot; &quot;M290&quot; &quot;M346&quot; &quot;M376&quot;</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [81] &quot;M387&quot; &quot;M388&quot; &quot;M71&quot;  &quot;M77&quot;  &quot;M82&quot;  &quot;M95&quot;  &quot;M102&quot; &quot;M128&quot; &quot;M198&quot; &quot;M255&quot;</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [91] &quot;M312&quot; &quot;M316&quot; &quot;M326&quot; &quot;M331&quot; &quot;M349&quot; &quot;M411&quot; &quot;M435&quot; &quot;M450&quot; &quot;M483&quot; &quot;M493&quot;</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [101] &quot;M28&quot;  &quot;M270&quot; &quot;M311&quot; &quot;M323&quot; &quot;M347&quot; &quot;M350&quot; &quot;M368&quot; &quot;M460&quot; &quot;M43&quot;  &quot;M75&quot; </span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [111] &quot;M92&quot;  &quot;M131&quot; &quot;M169&quot; &quot;M189&quot; &quot;M222&quot; &quot;M250&quot; &quot;M267&quot; &quot;M305&quot; &quot;M320&quot; &quot;M342&quot;</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [121] &quot;M358&quot; &quot;M420&quot; &quot;M500&quot; &quot;M44&quot;  &quot;M47&quot;  &quot;M49&quot;  &quot;M103&quot; &quot;M111&quot; &quot;M144&quot; &quot;M176&quot;</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [131] &quot;M184&quot; &quot;M191&quot; &quot;M228&quot; &quot;M232&quot; &quot;M266&quot; &quot;M269&quot; &quot;M353&quot; &quot;M374&quot; &quot;M378&quot; &quot;M400&quot;</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [141] &quot;M407&quot; &quot;M409&quot; &quot;M434&quot; &quot;M439&quot; &quot;M462&quot; &quot;M490&quot; &quot;M499&quot; &quot;M14&quot;  &quot;M24&quot;  &quot;M30&quot; </span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [151] &quot;M66&quot;  &quot;M89&quot;  &quot;M105&quot; &quot;M140&quot; &quot;M148&quot; &quot;M182&quot; &quot;M187&quot; &quot;M203&quot; &quot;M205&quot; &quot;M214&quot;</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [161] &quot;M229&quot; &quot;M237&quot; &quot;M243&quot; &quot;M257&quot; &quot;M271&quot; &quot;M286&quot; &quot;M303&quot; &quot;M306&quot; &quot;M314&quot; &quot;M367&quot;</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [171] &quot;M371&quot; &quot;M397&quot; &quot;M406&quot; &quot;M415&quot; &quot;M426&quot; &quot;M444&quot; &quot;M464&quot; &quot;M465&quot; &quot;M478&quot; &quot;M481&quot;</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [181] &quot;M484&quot; &quot;M485&quot; &quot;M487&quot; &quot;M489&quot; &quot;M25&quot;  &quot;M63&quot;  &quot;M65&quot;  &quot;M67&quot;  &quot;M79&quot;  &quot;M93&quot; </span></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [191] &quot;M97&quot;  &quot;M139&quot; &quot;M146&quot; &quot;M147&quot; &quot;M152&quot; &quot;M159&quot; &quot;M164&quot; &quot;M179&quot; &quot;M188&quot; &quot;M261&quot;</span></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [201] &quot;M308&quot; &quot;M357&quot; &quot;M380&quot; &quot;M390&quot; &quot;M395&quot; &quot;M405&quot; &quot;M416&quot; &quot;M421&quot; &quot;M447&quot; &quot;M448&quot;</span></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [211] &quot;M459&quot; &quot;M473&quot; &quot;M479&quot; &quot;M495&quot; &quot;M68&quot;  &quot;M70&quot;  &quot;M72&quot;  &quot;M73&quot;  &quot;M81&quot;  &quot;M90&quot; </span></span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [221] &quot;M112&quot; &quot;M118&quot; &quot;M137&quot; &quot;M156&quot; &quot;M158&quot; &quot;M162&quot; &quot;M167&quot; &quot;M170&quot; &quot;M174&quot; &quot;M178&quot;</span></span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [231] &quot;M194&quot; &quot;M199&quot; &quot;M216&quot; &quot;M220&quot; &quot;M223&quot; &quot;M238&quot; &quot;M244&quot; &quot;M256&quot; &quot;M263&quot; &quot;M274&quot;</span></span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [241] &quot;M277&quot; &quot;M294&quot; &quot;M297&quot; &quot;M310&quot; &quot;M317&quot; &quot;M318&quot; &quot;M324&quot; &quot;M329&quot; &quot;M335&quot; &quot;M338&quot;</span></span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [251] &quot;M339&quot; &quot;M340&quot; &quot;M389&quot; &quot;M425&quot; &quot;M428&quot; &quot;M451&quot; &quot;M456&quot; &quot;M470&quot; &quot;M480&quot; &quot;M492&quot;</span></span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [261] &quot;M53&quot;  &quot;M54&quot;  &quot;M56&quot;  &quot;M58&quot;  &quot;M59&quot;  &quot;M64&quot;  &quot;M74&quot;  &quot;M84&quot;  &quot;M98&quot;  &quot;M99&quot; </span></span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [271] &quot;M109&quot; &quot;M119&quot; &quot;M120&quot; &quot;M130&quot; &quot;M132&quot; &quot;M135&quot; &quot;M149&quot; &quot;M150&quot; &quot;M157&quot; &quot;M165&quot;</span></span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [281] &quot;M166&quot; &quot;M175&quot; &quot;M177&quot; &quot;M180&quot; &quot;M190&quot; &quot;M201&quot; &quot;M211&quot; &quot;M218&quot; &quot;M230&quot; &quot;M236&quot;</span></span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [291] &quot;M239&quot; &quot;M240&quot; &quot;M247&quot; &quot;M253&quot; &quot;M260&quot; &quot;M268&quot; &quot;M278&quot; &quot;M279&quot; &quot;M285&quot; &quot;M289&quot;</span></span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [301] &quot;M291&quot; &quot;M321&quot; &quot;M328&quot; &quot;M363&quot; &quot;M370&quot; &quot;M373&quot; &quot;M377&quot; &quot;M384&quot; &quot;M385&quot; &quot;M391&quot;</span></span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [311] &quot;M393&quot; &quot;M394&quot; &quot;M404&quot; &quot;M412&quot; &quot;M413&quot; &quot;M414&quot; &quot;M453&quot; &quot;M454&quot; &quot;M458&quot; &quot;M467&quot;</span></span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [321] &quot;M468&quot; &quot;M488&quot; &quot;M498&quot; &quot;M22&quot;  &quot;M26&quot;  &quot;M27&quot;  &quot;M29&quot;  &quot;M41&quot;  &quot;M51&quot;  &quot;M61&quot; </span></span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [331] &quot;M69&quot;  &quot;M76&quot;  &quot;M78&quot;  &quot;M83&quot;  &quot;M85&quot;  &quot;M91&quot;  &quot;M96&quot;  &quot;M100&quot; &quot;M101&quot; &quot;M104&quot;</span></span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [341] &quot;M107&quot; &quot;M113&quot; &quot;M114&quot; &quot;M121&quot; &quot;M122&quot; &quot;M126&quot; &quot;M129&quot; &quot;M133&quot; &quot;M141&quot; &quot;M143&quot;</span></span>
+<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [351] &quot;M153&quot; &quot;M154&quot; &quot;M155&quot; &quot;M160&quot; &quot;M168&quot; &quot;M171&quot; &quot;M172&quot; &quot;M183&quot; &quot;M185&quot; &quot;M186&quot;</span></span>
+<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [361] &quot;M192&quot; &quot;M206&quot; &quot;M212&quot; &quot;M213&quot; &quot;M217&quot; &quot;M221&quot; &quot;M225&quot; &quot;M227&quot; &quot;M245&quot; &quot;M248&quot;</span></span>
+<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [371] &quot;M249&quot; &quot;M251&quot; &quot;M252&quot; &quot;M259&quot; &quot;M265&quot; &quot;M272&quot; &quot;M276&quot; &quot;M281&quot; &quot;M293&quot; &quot;M302&quot;</span></span>
+<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [381] &quot;M304&quot; &quot;M307&quot; &quot;M309&quot; &quot;M313&quot; &quot;M315&quot; &quot;M322&quot; &quot;M325&quot; &quot;M330&quot; &quot;M336&quot; &quot;M337&quot;</span></span>
+<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [391] &quot;M343&quot; &quot;M348&quot; &quot;M352&quot; &quot;M354&quot; &quot;M355&quot; &quot;M359&quot; &quot;M360&quot; &quot;M365&quot; &quot;M375&quot; &quot;M383&quot;</span></span>
+<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [401] &quot;M386&quot; &quot;M392&quot; &quot;M396&quot; &quot;M408&quot; &quot;M410&quot; &quot;M417&quot; &quot;M422&quot; &quot;M424&quot; &quot;M427&quot; &quot;M429&quot;</span></span>
+<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [411] &quot;M431&quot; &quot;M433&quot; &quot;M438&quot; &quot;M440&quot; &quot;M441&quot; &quot;M442&quot; &quot;M446&quot; &quot;M452&quot; &quot;M455&quot; &quot;M457&quot;</span></span>
+<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [421] &quot;M466&quot; &quot;M471&quot; &quot;M497&quot; &quot;M42&quot;  &quot;M45&quot;  &quot;M48&quot;  &quot;M50&quot;  &quot;M52&quot;  &quot;M57&quot;  &quot;M60&quot; </span></span>
+<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [431] &quot;M86&quot;  &quot;M87&quot;  &quot;M108&quot; &quot;M115&quot; &quot;M116&quot; &quot;M124&quot; &quot;M125&quot; &quot;M136&quot; &quot;M145&quot; &quot;M151&quot;</span></span>
+<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [441] &quot;M163&quot; &quot;M173&quot; &quot;M197&quot; &quot;M200&quot; &quot;M202&quot; &quot;M204&quot; &quot;M208&quot; &quot;M209&quot; &quot;M210&quot; &quot;M215&quot;</span></span>
+<span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [451] &quot;M219&quot; &quot;M231&quot; &quot;M233&quot; &quot;M242&quot; &quot;M246&quot; &quot;M254&quot; &quot;M258&quot; &quot;M273&quot; &quot;M280&quot; &quot;M283&quot;</span></span>
+<span id="cb9-48"><a href="#cb9-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [461] &quot;M287&quot; &quot;M292&quot; &quot;M295&quot; &quot;M298&quot; &quot;M327&quot; &quot;M334&quot; &quot;M341&quot; &quot;M344&quot; &quot;M351&quot; &quot;M356&quot;</span></span>
+<span id="cb9-49"><a href="#cb9-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [471] &quot;M361&quot; &quot;M362&quot; &quot;M366&quot; &quot;M369&quot; &quot;M372&quot; &quot;M381&quot; &quot;M382&quot; &quot;M399&quot; &quot;M402&quot; &quot;M403&quot;</span></span>
+<span id="cb9-50"><a href="#cb9-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [481] &quot;M418&quot; &quot;M419&quot; &quot;M430&quot; &quot;M432&quot; &quot;M437&quot; &quot;M443&quot; &quot;M445&quot; &quot;M449&quot; &quot;M461&quot; &quot;M463&quot;</span></span>
+<span id="cb9-51"><a href="#cb9-51" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [491] &quot;M469&quot; &quot;M475&quot; &quot;M476&quot; &quot;M477&quot; &quot;M486&quot; &quot;M494&quot; &quot;M496&quot; &quot;M123&quot; &quot;M301&quot; &quot;M482&quot;</span></span></code></pre></div>
+<p>To see the results of the multiple analysis with mediators selected at the step 1, use :</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>(mahifit<span class="sc">$</span>multimed)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                      . Estimation    IC.inf    IC.sup P.val</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1     ACME.joint.treat  -267.3239 -409.1926 -131.1545 0.000</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2            PM(treat)     0.7770    0.3799    1.1803 0.000</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3   ACME.joint.control  -267.3239 -409.1926 -131.1545 0.000</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4          PM(control)     0.7770    0.3799    1.1803 0.000</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5        ACME.treat.M1  -212.9928 -253.4935 -173.1689 0.000</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6         PM(treat).M1     0.6262    0.4901    0.7778 0.000</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7      ACME.control.M1  -212.9928 -253.4935 -173.1689 0.000</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8       PM(control).M1     0.6262    0.4901    0.7778 0.000</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9        ACME.treat.M7  -161.6643 -204.7502 -124.6194 0.000</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10        PM(treat).M7     0.4717    0.3588    0.6236 0.000</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 11     ACME.control.M7  -161.6643 -204.7502 -124.6194 0.000</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 12      PM(control).M7     0.4717    0.3588    0.6236 0.000</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 13       ACME.treat.M8  -152.7736 -192.8447 -117.3996 0.000</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 14        PM(treat).M8     0.4483    0.3357    0.5718 0.000</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 15     ACME.control.M8  -152.7736 -192.8447 -117.3996 0.000</span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 16      PM(control).M8     0.4483    0.3357    0.5718 0.000</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 17       ACME.treat.M9   -93.3947 -138.0611  -51.0175 0.000</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 18        PM(treat).M9     0.2758    0.1442    0.4135 0.000</span></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 19     ACME.control.M9   -93.3947 -138.0611  -51.0175 0.000</span></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 20      PM(control).M9     0.2758    0.1442    0.4135 0.000</span></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 21      ACME.treat.M10  -171.0014 -218.1248 -127.2333 0.000</span></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 22       PM(treat).M10     0.5022    0.3674    0.6502 0.000</span></span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 23    ACME.control.M10  -171.0014 -218.1248 -127.2333 0.000</span></span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 24     PM(control).M10     0.5022    0.3674    0.6502 0.000</span></span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 25       ACME.treat.M2  -188.0259 -238.2724 -135.2092 0.000</span></span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 26        PM(treat).M2     0.5536    0.4003    0.7184 0.000</span></span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 27     ACME.control.M2  -188.0259 -238.2724 -135.2092 0.000</span></span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 28      PM(control).M2     0.5536    0.4003    0.7184 0.000</span></span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 29       ACME.treat.M3   155.6799  109.2593  198.0885 0.000</span></span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 30        PM(treat).M3    -0.4609   -0.5955   -0.3195 0.000</span></span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 31     ACME.control.M3   155.6799  109.2593  198.0885 0.000</span></span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 32      PM(control).M3    -0.4609   -0.5955   -0.3195 0.000</span></span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 33       ACME.treat.M5   224.0727  182.3411  265.1368 0.000</span></span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 34        PM(treat).M5    -0.6549   -0.8035   -0.5169 0.000</span></span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 35     ACME.control.M5   224.0727  182.3411  265.1368 0.000</span></span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 36      PM(control).M5    -0.6549   -0.8035   -0.5169 0.000</span></span>
+<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 37       ACME.treat.M6   208.6377  166.5645  250.8460 0.000</span></span>
+<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 38        PM(treat).M6    -0.6157   -0.7650   -0.4724 0.000</span></span>
+<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 39     ACME.control.M6   208.6377  166.5645  250.8460 0.000</span></span>
+<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 40      PM(control).M6    -0.6157   -0.7650   -0.4724 0.000</span></span>
+<span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 41       ACME.treat.M4   160.9924  121.2216  199.6724 0.000</span></span>
+<span id="cb10-44"><a href="#cb10-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 42        PM(treat).M4    -0.4738   -0.6149   -0.3502 0.000</span></span>
+<span id="cb10-45"><a href="#cb10-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 43     ACME.control.M4   160.9924  121.2216  199.6724 0.000</span></span>
+<span id="cb10-46"><a href="#cb10-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 44      PM(control).M4    -0.4738   -0.6149   -0.3502 0.000</span></span>
+<span id="cb10-47"><a href="#cb10-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 45      ACME.treat.M13   -16.2908  -32.6165   -1.5828 0.028</span></span>
+<span id="cb10-48"><a href="#cb10-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 46       PM(treat).M13     0.0469    0.0047    0.0977 0.028</span></span>
+<span id="cb10-49"><a href="#cb10-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 47    ACME.control.M13   -16.2908  -32.6165   -1.5828 0.028</span></span>
+<span id="cb10-50"><a href="#cb10-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 48     PM(control).M13     0.0469    0.0047    0.0977 0.028</span></span>
+<span id="cb10-51"><a href="#cb10-51" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 49      ACME.treat.M20    -3.1911  -16.6241    9.9489 0.674</span></span>
+<span id="cb10-52"><a href="#cb10-52" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 50       PM(treat).M20     0.0090   -0.0299    0.0489 0.674</span></span>
+<span id="cb10-53"><a href="#cb10-53" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 51    ACME.control.M20    -3.1911  -16.6241    9.9489 0.674</span></span>
+<span id="cb10-54"><a href="#cb10-54" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 52     PM(control).M20     0.0090   -0.0299    0.0489 0.674</span></span>
+<span id="cb10-55"><a href="#cb10-55" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 53      ACME.treat.M37   -12.2702  -24.7577   -0.1286 0.046</span></span>
+<span id="cb10-56"><a href="#cb10-56" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 54       PM(treat).M37     0.0354    0.0004    0.0728 0.046</span></span>
+<span id="cb10-57"><a href="#cb10-57" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 55    ACME.control.M37   -12.2702  -24.7577   -0.1286 0.046</span></span>
+<span id="cb10-58"><a href="#cb10-58" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 56     PM(control).M37     0.0354    0.0004    0.0728 0.046</span></span>
+<span id="cb10-59"><a href="#cb10-59" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 57      ACME.treat.M17     1.2760  -17.4918   20.6161 0.924</span></span>
+<span id="cb10-60"><a href="#cb10-60" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 58       PM(treat).M17    -0.0033   -0.0632    0.0516 0.924</span></span>
+<span id="cb10-61"><a href="#cb10-61" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 59    ACME.control.M17     1.2760  -17.4918   20.6161 0.924</span></span>
+<span id="cb10-62"><a href="#cb10-62" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 60     PM(control).M17    -0.0033   -0.0632    0.0516 0.924</span></span>
+<span id="cb10-63"><a href="#cb10-63" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 61      ACME.treat.M16   -11.0228  -23.1692    0.2126 0.058</span></span>
+<span id="cb10-64"><a href="#cb10-64" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 62       PM(treat).M16     0.0323   -0.0006    0.0697 0.058</span></span>
+<span id="cb10-65"><a href="#cb10-65" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 63    ACME.control.M16   -11.0228  -23.1692    0.2126 0.058</span></span>
+<span id="cb10-66"><a href="#cb10-66" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 64     PM(control).M16     0.0323   -0.0006    0.0697 0.058</span></span>
+<span id="cb10-67"><a href="#cb10-67" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 65      ACME.treat.M32    10.6695   -1.6215   25.0583 0.082</span></span>
+<span id="cb10-68"><a href="#cb10-68" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 66       PM(treat).M32    -0.0304   -0.0754    0.0049 0.082</span></span>
+<span id="cb10-69"><a href="#cb10-69" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 67    ACME.control.M32    10.6695   -1.6215   25.0583 0.082</span></span>
+<span id="cb10-70"><a href="#cb10-70" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 68     PM(control).M32    -0.0304   -0.0754    0.0049 0.082</span></span>
+<span id="cb10-71"><a href="#cb10-71" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 69      ACME.treat.M15    -6.0699  -24.1770   12.0042 0.514</span></span>
+<span id="cb10-72"><a href="#cb10-72" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 70       PM(treat).M15     0.0171   -0.0349    0.0715 0.514</span></span>
+<span id="cb10-73"><a href="#cb10-73" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 71    ACME.control.M15    -6.0699  -24.1770   12.0042 0.514</span></span>
+<span id="cb10-74"><a href="#cb10-74" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 72     PM(control).M15     0.0171   -0.0349    0.0715 0.514</span></span>
+<span id="cb10-75"><a href="#cb10-75" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 73      ACME.treat.M18    -5.9196  -17.5746    6.3633 0.328</span></span>
+<span id="cb10-76"><a href="#cb10-76" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 74       PM(treat).M18     0.0182   -0.0194    0.0526 0.328</span></span>
+<span id="cb10-77"><a href="#cb10-77" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 75    ACME.control.M18    -5.9196  -17.5746    6.3633 0.328</span></span>
+<span id="cb10-78"><a href="#cb10-78" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 76     PM(control).M18     0.0182   -0.0194    0.0526 0.328</span></span>
+<span id="cb10-79"><a href="#cb10-79" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 77      ACME.treat.M12    -2.1466  -14.0561   10.9225 0.728</span></span>
+<span id="cb10-80"><a href="#cb10-80" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 78       PM(treat).M12     0.0061   -0.0337    0.0411 0.728</span></span>
+<span id="cb10-81"><a href="#cb10-81" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 79    ACME.control.M12    -2.1466  -14.0561   10.9225 0.728</span></span>
+<span id="cb10-82"><a href="#cb10-82" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 80     PM(control).M12     0.0061   -0.0337    0.0411 0.728</span></span>
+<span id="cb10-83"><a href="#cb10-83" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 81      ACME.treat.M31    -1.5717  -11.6366    8.5385 0.744</span></span>
+<span id="cb10-84"><a href="#cb10-84" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 82       PM(treat).M31     0.0046   -0.0256    0.0354 0.744</span></span>
+<span id="cb10-85"><a href="#cb10-85" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 83    ACME.control.M31    -1.5717  -11.6366    8.5385 0.744</span></span>
+<span id="cb10-86"><a href="#cb10-86" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 84     PM(control).M31     0.0046   -0.0256    0.0354 0.744</span></span>
+<span id="cb10-87"><a href="#cb10-87" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 85      ACME.treat.M36     5.7900   -3.4659   15.3466 0.240</span></span>
+<span id="cb10-88"><a href="#cb10-88" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 86       PM(treat).M36    -0.0164   -0.0463    0.0098 0.240</span></span>
+<span id="cb10-89"><a href="#cb10-89" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 87    ACME.control.M36     5.7900   -3.4659   15.3466 0.240</span></span>
+<span id="cb10-90"><a href="#cb10-90" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 88     PM(control).M36    -0.0164   -0.0463    0.0098 0.240</span></span>
+<span id="cb10-91"><a href="#cb10-91" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 89      ACME.treat.M39    -3.7359  -15.2528    6.9121 0.524</span></span>
+<span id="cb10-92"><a href="#cb10-92" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 90       PM(treat).M39     0.0104   -0.0207    0.0454 0.524</span></span>
+<span id="cb10-93"><a href="#cb10-93" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 91    ACME.control.M39    -3.7359  -15.2528    6.9121 0.524</span></span>
+<span id="cb10-94"><a href="#cb10-94" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 92     PM(control).M39     0.0104   -0.0207    0.0454 0.524</span></span>
+<span id="cb10-95"><a href="#cb10-95" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 93      ACME.treat.M80     0.1369   -1.9137    2.4041 0.864</span></span>
+<span id="cb10-96"><a href="#cb10-96" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 94       PM(treat).M80    -0.0002   -0.0071    0.0056 0.864</span></span>
+<span id="cb10-97"><a href="#cb10-97" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 95    ACME.control.M80     0.1369   -1.9137    2.4041 0.864</span></span>
+<span id="cb10-98"><a href="#cb10-98" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 96     PM(control).M80    -0.0002   -0.0071    0.0056 0.864</span></span>
+<span id="cb10-99"><a href="#cb10-99" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 97     ACME.treat.M110     0.1503   -1.3463    2.0243 0.866</span></span>
+<span id="cb10-100"><a href="#cb10-100" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 98      PM(treat).M110    -0.0002   -0.0059    0.0038 0.866</span></span>
+<span id="cb10-101"><a href="#cb10-101" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 99   ACME.control.M110     0.1503   -1.3463    2.0243 0.866</span></span>
+<span id="cb10-102"><a href="#cb10-102" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 100   PM(control).M110    -0.0002   -0.0059    0.0038 0.866</span></span>
+<span id="cb10-103"><a href="#cb10-103" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 101    ACME.treat.M423     0.1464   -1.4873    2.1262 0.876</span></span>
+<span id="cb10-104"><a href="#cb10-104" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 102     PM(treat).M423    -0.0001   -0.0064    0.0044 0.876</span></span>
+<span id="cb10-105"><a href="#cb10-105" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 103  ACME.control.M423     0.1464   -1.4873    2.1262 0.876</span></span>
+<span id="cb10-106"><a href="#cb10-106" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 104   PM(control).M423    -0.0001   -0.0064    0.0044 0.876</span></span>
+<span id="cb10-107"><a href="#cb10-107" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 105     ACME.treat.M34     0.1580  -10.5496   11.7007 0.960</span></span>
+<span id="cb10-108"><a href="#cb10-108" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 106      PM(treat).M34    -0.0006   -0.0339    0.0310 0.960</span></span>
+<span id="cb10-109"><a href="#cb10-109" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 107   ACME.control.M34     0.1580  -10.5496   11.7007 0.960</span></span>
+<span id="cb10-110"><a href="#cb10-110" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 108    PM(control).M34    -0.0006   -0.0339    0.0310 0.960</span></span>
+<span id="cb10-111"><a href="#cb10-111" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 109    ACME.treat.M161    -0.8734   -4.7780    2.1845 0.588</span></span>
+<span id="cb10-112"><a href="#cb10-112" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 110     PM(treat).M161     0.0020   -0.0066    0.0140 0.588</span></span>
+<span id="cb10-113"><a href="#cb10-113" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 111  ACME.control.M161    -0.8734   -4.7780    2.1845 0.588</span></span>
+<span id="cb10-114"><a href="#cb10-114" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 112   PM(control).M161     0.0020   -0.0066    0.0140 0.588</span></span>
+<span id="cb10-115"><a href="#cb10-115" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 113    ACME.treat.M275    -0.2241   -2.7728    1.9653 0.860</span></span>
+<span id="cb10-116"><a href="#cb10-116" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 114     PM(treat).M275     0.0002   -0.0059    0.0084 0.860</span></span>
+<span id="cb10-117"><a href="#cb10-117" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 115  ACME.control.M275    -0.2241   -2.7728    1.9653 0.860</span></span>
+<span id="cb10-118"><a href="#cb10-118" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 116   PM(control).M275     0.0002   -0.0059    0.0084 0.860</span></span>
+<span id="cb10-119"><a href="#cb10-119" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 117    ACME.treat.M332     1.0992   -1.6385    4.8175 0.448</span></span>
+<span id="cb10-120"><a href="#cb10-120" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 118     PM(treat).M332    -0.0026   -0.0142    0.0049 0.448</span></span>
+<span id="cb10-121"><a href="#cb10-121" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 119  ACME.control.M332     1.0992   -1.6385    4.8175 0.448</span></span>
+<span id="cb10-122"><a href="#cb10-122" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 120   PM(control).M332    -0.0026   -0.0142    0.0049 0.448</span></span>
+<span id="cb10-123"><a href="#cb10-123" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 121    ACME.treat.M472     0.3013   -1.9673    2.8709 0.788</span></span>
+<span id="cb10-124"><a href="#cb10-124" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 122     PM(treat).M472    -0.0004   -0.0084    0.0057 0.788</span></span>
+<span id="cb10-125"><a href="#cb10-125" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 123  ACME.control.M472     0.3013   -1.9673    2.8709 0.788</span></span>
+<span id="cb10-126"><a href="#cb10-126" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 124   PM(control).M472    -0.0004   -0.0084    0.0057 0.788</span></span>
+<span id="cb10-127"><a href="#cb10-127" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 125     ACME.treat.M11   -11.4450  -21.5568   -2.8344 0.006</span></span>
+<span id="cb10-128"><a href="#cb10-128" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 126      PM(treat).M11     0.0331    0.0081    0.0650 0.006</span></span>
+<span id="cb10-129"><a href="#cb10-129" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 127   ACME.control.M11   -11.4450  -21.5568   -2.8344 0.006</span></span>
+<span id="cb10-130"><a href="#cb10-130" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 128    PM(control).M11     0.0331    0.0081    0.0650 0.006</span></span>
+<span id="cb10-131"><a href="#cb10-131" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 129     ACME.treat.M19     7.4447   -5.1064   21.2660 0.246</span></span>
+<span id="cb10-132"><a href="#cb10-132" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 130      PM(treat).M19    -0.0219   -0.0612    0.0157 0.246</span></span>
+<span id="cb10-133"><a href="#cb10-133" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 131   ACME.control.M19     7.4447   -5.1064   21.2660 0.246</span></span>
+<span id="cb10-134"><a href="#cb10-134" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 132    PM(control).M19    -0.0219   -0.0612    0.0157 0.246</span></span>
+<span id="cb10-135"><a href="#cb10-135" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 133     ACME.treat.M33     3.9061   -5.1399   13.1163 0.396</span></span>
+<span id="cb10-136"><a href="#cb10-136" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 134      PM(treat).M33    -0.0111   -0.0386    0.0151 0.396</span></span>
+<span id="cb10-137"><a href="#cb10-137" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 135   ACME.control.M33     3.9061   -5.1399   13.1163 0.396</span></span>
+<span id="cb10-138"><a href="#cb10-138" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 136    PM(control).M33    -0.0111   -0.0386    0.0151 0.396</span></span>
+<span id="cb10-139"><a href="#cb10-139" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 137     ACME.treat.M38    -0.0488   -9.5329    8.7622 0.958</span></span>
+<span id="cb10-140"><a href="#cb10-140" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 138      PM(treat).M38    -0.0009   -0.0257    0.0283 0.958</span></span>
+<span id="cb10-141"><a href="#cb10-141" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 139   ACME.control.M38    -0.0488   -9.5329    8.7622 0.958</span></span>
+<span id="cb10-142"><a href="#cb10-142" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 140    PM(control).M38    -0.0009   -0.0257    0.0283 0.958</span></span>
+<span id="cb10-143"><a href="#cb10-143" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 141    ACME.treat.M300    -0.2607   -2.6644    1.6982 0.776</span></span>
+<span id="cb10-144"><a href="#cb10-144" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 142     PM(treat).M300     0.0003   -0.0047    0.0081 0.776</span></span>
+<span id="cb10-145"><a href="#cb10-145" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 143  ACME.control.M300    -0.2607   -2.6644    1.6982 0.776</span></span>
+<span id="cb10-146"><a href="#cb10-146" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 144   PM(control).M300     0.0003   -0.0047    0.0081 0.776</span></span>
+<span id="cb10-147"><a href="#cb10-147" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 145    ACME.treat.M379     0.4049   -1.1266    2.6472 0.646</span></span>
+<span id="cb10-148"><a href="#cb10-148" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 146     PM(treat).M379    -0.0006   -0.0076    0.0033 0.646</span></span>
+<span id="cb10-149"><a href="#cb10-149" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 147  ACME.control.M379     0.4049   -1.1266    2.6472 0.646</span></span>
+<span id="cb10-150"><a href="#cb10-150" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 148   PM(control).M379    -0.0006   -0.0076    0.0033 0.646</span></span>
+<span id="cb10-151"><a href="#cb10-151" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 149    ACME.treat.M398    -0.4874   -2.7912    1.4657 0.592</span></span>
+<span id="cb10-152"><a href="#cb10-152" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 150     PM(treat).M398     0.0009   -0.0045    0.0086 0.592</span></span>
+<span id="cb10-153"><a href="#cb10-153" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 151  ACME.control.M398    -0.4874   -2.7912    1.4657 0.592</span></span>
+<span id="cb10-154"><a href="#cb10-154" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 152   PM(control).M398     0.0009   -0.0045    0.0086 0.592</span></span>
+<span id="cb10-155"><a href="#cb10-155" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 153     ACME.treat.M23     1.0003   -1.3971    4.4083 0.436</span></span>
+<span id="cb10-156"><a href="#cb10-156" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 154      PM(treat).M23    -0.0022   -0.0129    0.0042 0.436</span></span>
+<span id="cb10-157"><a href="#cb10-157" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 155   ACME.control.M23     1.0003   -1.3971    4.4083 0.436</span></span>
+<span id="cb10-158"><a href="#cb10-158" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 156    PM(control).M23    -0.0022   -0.0129    0.0042 0.436</span></span>
+<span id="cb10-159"><a href="#cb10-159" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 157     ACME.treat.M35     2.3907   -8.8209   13.6794 0.694</span></span>
+<span id="cb10-160"><a href="#cb10-160" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 158      PM(treat).M35    -0.0070   -0.0410    0.0259 0.694</span></span>
+<span id="cb10-161"><a href="#cb10-161" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 159   ACME.control.M35     2.3907   -8.8209   13.6794 0.694</span></span>
+<span id="cb10-162"><a href="#cb10-162" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 160    PM(control).M35    -0.0070   -0.0410    0.0259 0.694</span></span>
+<span id="cb10-163"><a href="#cb10-163" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 161     ACME.treat.M40     3.5093   -7.3973   14.3096 0.506</span></span>
+<span id="cb10-164"><a href="#cb10-164" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 162      PM(treat).M40    -0.0101   -0.0423    0.0224 0.506</span></span>
+<span id="cb10-165"><a href="#cb10-165" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 163   ACME.control.M40     3.5093   -7.3973   14.3096 0.506</span></span>
+<span id="cb10-166"><a href="#cb10-166" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 164    PM(control).M40    -0.0101   -0.0423    0.0224 0.506</span></span>
+<span id="cb10-167"><a href="#cb10-167" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 165    ACME.treat.M282     0.0028   -1.6783    1.6244 0.986</span></span>
+<span id="cb10-168"><a href="#cb10-168" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 166     PM(treat).M282     0.0000   -0.0050    0.0048 0.986</span></span>
+<span id="cb10-169"><a href="#cb10-169" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 167  ACME.control.M282     0.0028   -1.6783    1.6244 0.986</span></span>
+<span id="cb10-170"><a href="#cb10-170" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 168   PM(control).M282     0.0000   -0.0050    0.0048 0.986</span></span>
+<span id="cb10-171"><a href="#cb10-171" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 169    ACME.treat.M138    -0.0022   -1.5633    1.5715 1.000</span></span>
+<span id="cb10-172"><a href="#cb10-172" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 170     PM(treat).M138     0.0000   -0.0046    0.0046 1.000</span></span>
+<span id="cb10-173"><a href="#cb10-173" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 171  ACME.control.M138    -0.0022   -1.5633    1.5715 1.000</span></span>
+<span id="cb10-174"><a href="#cb10-174" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 172   PM(control).M138     0.0000   -0.0046    0.0046 1.000</span></span>
+<span id="cb10-175"><a href="#cb10-175" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 173    ACME.treat.M224     0.3200   -1.7972    2.8484 0.734</span></span>
+<span id="cb10-176"><a href="#cb10-176" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 174     PM(treat).M224    -0.0005   -0.0083    0.0055 0.734</span></span>
+<span id="cb10-177"><a href="#cb10-177" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 175  ACME.control.M224     0.3200   -1.7972    2.8484 0.734</span></span>
+<span id="cb10-178"><a href="#cb10-178" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 176   PM(control).M224    -0.0005   -0.0083    0.0055 0.734</span></span>
+<span id="cb10-179"><a href="#cb10-179" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 177          ADE.treat   -73.1030 -211.6381   60.0614 0.314</span></span>
+<span id="cb10-180"><a href="#cb10-180" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 178        ADE.control   -73.1030 -211.6381   60.0614 0.314</span></span>
+<span id="cb10-181"><a href="#cb10-181" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 179       Total Effect  -340.4268 -376.6834 -303.0816 0.000</span></span></code></pre></div>
+<p>You can see the p-value in the previous table or use :</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>  mahifit<span class="sc">$</span>pvals</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        [,1]</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1,] 0.000</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [2,] 0.000</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [3,] 0.000</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [4,] 0.000</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [5,] 0.000</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [6,] 0.000</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [7,] 0.000</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [8,] 0.000</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [9,] 0.000</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [10,] 0.000</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [11,] 0.028</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [12,] 0.674</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [13,] 0.046</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [14,] 0.924</span></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [15,] 0.058</span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [16,] 0.082</span></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [17,] 0.514</span></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [18,] 0.328</span></span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [19,] 0.728</span></span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [20,] 0.744</span></span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [21,] 0.240</span></span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [22,] 0.524</span></span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [23,] 0.864</span></span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [24,] 0.866</span></span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [25,] 0.876</span></span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [26,] 0.960</span></span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [27,] 0.588</span></span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [28,] 0.860</span></span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [29,] 0.448</span></span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [30,] 0.788</span></span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [31,] 0.006</span></span>
+<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [32,] 0.246</span></span>
+<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [33,] 0.396</span></span>
+<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [34,] 0.958</span></span>
+<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [35,] 0.776</span></span>
+<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [36,] 0.646</span></span>
+<span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [37,] 0.592</span></span>
+<span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38,] 0.436</span></span>
+<span id="cb11-41"><a href="#cb11-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [39,] 0.694</span></span>
+<span id="cb11-42"><a href="#cb11-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [40,] 0.506</span></span>
+<span id="cb11-43"><a href="#cb11-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [41,] 0.986</span></span>
+<span id="cb11-44"><a href="#cb11-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [42,] 1.000</span></span>
+<span id="cb11-45"><a href="#cb11-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [43,] 0.734</span></span></code></pre></div>
+<p>The corrected p-value for the multiple test obtained with method given can be disp with :</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>  mahifit<span class="sc">$</span>pvalscorr</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        [,1]</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1,] 0.000</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [2,] 0.000</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [3,] 0.000</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [4,] 0.000</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [5,] 0.000</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [6,] 0.000</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [7,] 0.000</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [8,] 0.000</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [9,] 0.000</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [10,] 0.000</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [11,] 0.896</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [12,] 1.000</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [13,] 1.000</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [14,] 1.000</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [15,] 1.000</span></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [16,] 1.000</span></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [17,] 1.000</span></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [18,] 1.000</span></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [19,] 1.000</span></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [20,] 1.000</span></span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [21,] 1.000</span></span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [22,] 1.000</span></span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [23,] 1.000</span></span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [24,] 1.000</span></span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [25,] 1.000</span></span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [26,] 1.000</span></span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [27,] 1.000</span></span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [28,] 1.000</span></span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [29,] 1.000</span></span>
+<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [30,] 1.000</span></span>
+<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [31,] 0.198</span></span>
+<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [32,] 1.000</span></span>
+<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [33,] 1.000</span></span>
+<span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [34,] 1.000</span></span>
+<span id="cb12-37"><a href="#cb12-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [35,] 1.000</span></span>
+<span id="cb12-38"><a href="#cb12-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [36,] 1.000</span></span>
+<span id="cb12-39"><a href="#cb12-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [37,] 1.000</span></span>
+<span id="cb12-40"><a href="#cb12-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38,] 1.000</span></span>
+<span id="cb12-41"><a href="#cb12-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [39,] 1.000</span></span>
+<span id="cb12-42"><a href="#cb12-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [40,] 1.000</span></span>
+<span id="cb12-43"><a href="#cb12-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [41,] 1.000</span></span>
+<span id="cb12-44"><a href="#cb12-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [42,] 1.000</span></span>
+<span id="cb12-45"><a href="#cb12-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [43,] 1.000</span></span></code></pre></div>
+<p>It is then possible to make another correction for a multiple test with the mediators selected in step 1.</p>
+<p>To see the mediators selected after step 2 you can use these lines of codes.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>mahifit<span class="sc">$</span>selection</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   [1]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE FALSE</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [25] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [37] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [49] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [61] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [73] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [85] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [97] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [109] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [121] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [133] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [145] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [157] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [169] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [181] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [193] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [205] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [217] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [229] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [241] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [253] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [265] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [277] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [289] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [301] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [313] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [325] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [337] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [349] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [361] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
+<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [373] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
+<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [385] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
+<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [397] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
+<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [409] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
+<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [421] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
+<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [433] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
+<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [445] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
+<span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [457] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
+<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [469] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
+<span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [481] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
+<span id="cb13-43"><a href="#cb13-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [493] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
+<span id="cb13-44"><a href="#cb13-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-45"><a href="#cb13-45" aria-hidden="true" tabindex="-1"></a>mahiselection <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(<span class="fu">which</span>(mahifit<span class="sc">$</span>selection <span class="sc">!=</span> <span class="cn">FALSE</span>))</span>
+<span id="cb13-46"><a href="#cb13-46" aria-hidden="true" tabindex="-1"></a>mahiselection</span>
+<span id="cb13-47"><a href="#cb13-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1]  1  2  3  4  5  6  7  8  9 10</span></span></code></pre></div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
