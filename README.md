@@ -1,5 +1,5 @@
 # mahi
-This package is based on the work presented in A. Jérolon et al., "Group lasso based selection for high-dimensional mediation analysis".
+This R package is based on the work presented in A. Jérolon et al., "Group lasso based selection for high-dimensional mediation analysis".
 
 Examples of use and supported models by our package are shown in vignettes/mahi.html .
 
