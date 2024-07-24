@@ -14,10 +14,10 @@
 
 summary.mahi = function(object,opt='avg',logit='all',...){
   cat('Resulst for the mahi selection with n =', object$n, "and p =", object$K,"\n \n",
-      'The Kmax = ',object$Kmax, 'first potentials mediators after stability selection are : \n', object$Kmaxrank,'\n')
+      'The Kmax  (',object$Kmax, ')first potentials mediators after stability selection are : \n', object$Kmaxrank,'\n')
 
-  if (object$step2==TRUE){
-    cat('The multiple mediation analysis with the previous potentials mediators.')
+  if (!is.null(object$step2)){
+    cat('The multiple mediation analysis with the previous potentials mediators.\n')
     print(summary(object$multimed,opt=opt,logit=logit))
 
     cat('The corrected p-values using the p.adjust.method specified are : \n', object$pvalscorr)
