@@ -15,112 +15,91 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
-library(multimediate)
+library(mahi)
 ```
 
 
-Simulation of high dimensional data
 
 ```{r}
-set.seed(42)
-nbrsamples <- 1 # number of datasets to simulate
-n <- 100 # number of observationsn , n = 300
-p <- 500#0 # number of mediators, p = 500, 1000 and 5000
-alpha <- rep(0,p) # exposure --> mediators
-beta <- rep(0,p) # mediators --> outcome
-gamma <- 0.5 # exposure --> outcome
-c <- 0.2 # intercept term in the outcome model
-
-# true mediators
-
-# 10 easy to predict
-alpha[1:10] <- c(-0.95, 0.90, 0.95, 0.95, -1.0, 0.95, -0.95, 0.85, -0.95, -1.0)*10
-beta[1:10] <- c(1.85, -1.95, 1.90, 1.85, -1.90, 1.85, 1.95, -1.90, 1.0, 1.85)*10
-
-# 10 middle easy to predict
-alpha[11:20] <- c(-0.55, 0.65, -0.70, 0.50, -0.75, 0.60, -0.65, 0.55, 0.60, 0.70)*5
-beta[11:20] <- c(0.65, -0.50, 0.75, -0.60, 0.70, -0.55, 0.75, -0.65, 0.65, -0.55)*5
-
-# 10 hard to predict
-alpha[21:30] <- c(-0.35, 0.25, -0.15, -0.10, 0.20, -0.35, 0.05, -0.45, 0.15, -0.10)*2.5
-beta[21:30] <- c(0.15, -0.10, 0.25, -0.45, 0.30, 0.10, -0.20, 0.15, -0.25, 0.30)*2.5
-
-# not true mediators
-alpha[31:40] <- 0.25*10 # betas are zero
-beta[41:50] <- 0.45*10 # alphas are zero
-
-simdatasets <- list()
-
-# In the following : X = exposure, M = mediators, Y = outcome, C = confounder
-for (s in 1:nbrsamples) {
-
-  ck <- t(runif(p, -2, 2)) # intercept term of the mediator models
-  M <- matrix(0, n, p) # matrix that contains the mediators
-  X <- ifelse(runif(n, 0, 1) < 0.5, 0, 1) # binary exposure vector
-  #C <- rnorm(n, 0, 0) # confounder effect (only one for now)
-  #ksi1 <- rnorm(p, 0, 0) # regression coefficient of confounder effect --> M, 
-  # different coeff in front of each mediator, but not different from one individual to the other
-
-  for (i in 1 : n) {
-    e <- rnorm(p, 0, 1.5) # error term of the mediator models
-    M[i,] <- ck + X[i] * alpha + e#+ C[i]*ksi1 + e  
-    # Each mediator model contains one confounder effect,
-    #same value for all mediators p, but different value from an individual to the other
-  }
-  colnames(M) <- paste0("M", 1:ncol(M))
-
-  XM <- cbind(X, M)  #  [X M]
-  epsilon <- rnorm(n, 0, 1.5) # error term of the outcome model
-  ksi2 <- 0.1 # regression coefficient of confounder effect --> Y
-  B <- c(gamma, beta)  # (p+1) times 1
-  Y <- c + XM %*% t(t(B)) + t(t(epsilon))#+ C*ksi2 + t(t(epsilon)) #  the response vector
-  #Y <- matrix(rbinom(n, 1, 1/(1 + exp(-Y))), nrow = n) # binary outcome
-
-simdatasets[[s]] <- cbind(X, M, Y)#, C)
-}
-   
-for (s in 1:nbrsamples) {
-  simdatasets[[s]] <- as.data.frame(simdatasets[[s]])
-  colnames(simdatasets[[s]])[1] <- "X" # renaming the exposure as X
-  colnames(simdatasets[[s]])[p+2] <- "Y" # renaming the outcome as Y
-}
+data(data_cont)
 ```
 
+We ran simulations to validate MAHI and to compare it to methods recently introduced in the literature.
 
-Before using the function mahi we have to choose a value for lambda using lambdaChoice function. We have to set a max for lambda with lambdamax. The returned value is less than lambdamax and allows you to select a mediator number between selectedMin and selectedMax. The value of selectedMax must be less than or equal to the number of individuals n. If the value of lambdamax is not hifh enough you will have this message. 
+\subsection{Models}
+
+\subsubsection{Continuous Outcome}
+
+The dataset `data_cont` include $n = 100$ observations and $K = 500$ candidate mediators, according to the model
+
+\begin{equation}
+\begin{array}{ccl}
+M_{ik} & = & \mu_k  + \alpha_k T_i + \epsilon_{ik}\\ 
+Y_i & = & 20 + 50 T_i + \sum_k \beta_k M_{ik} +\epsilon_{i0}
+\end{array}\label{grand_simed}
+\end{equation}
+where $1\leq i\leq n$ and $1\leq k\leq K$. The only exposure $T$ follows a Bernoulli distribution, $T \sim \mathcal{B}(0.3)$,  $\mu_k$ is drawn uniformly in the interval $[-2,2]$ for each variable $M_k$ and  $\epsilon_{k} \sim \mathcal{N}(0,1)$ for $k \in (0,\dots,500)$. Note that variables $M_k$ are causally unrelated one to the each other.
+
+Table~\ref{grand_param} shows the values of $\alpha_k$ and $\beta_k$ for the first 30 variables $M_k$. The higher the absolute values of $\alpha_k,\beta_k$, the greater the indirect effect through $M_k$. As such, the first 10 mediators have strong indirect effects (and in principle are easier to select), the next 10 have mild indirect effects (less easy to detect) and the next 10 have weak indirect effects (hard to detect). All other 470 variables $M_k$ are not true mediators because either $\alpha_k=0$ or $\beta_k=0$.
+
+\begin{table}[htp]
+\begin{tabular}{|c|cccccccccc|}
+\hline
+$\boldsymbol{k}$ & \bf{1} & \bf{2} & \bf{3} & \bf{4} & \bf{5} & \bf{6} & \bf{7} & \bf{8} & \bf{9} & \bf{10} \\
+\hline
+$\boldsymbol{\alpha_{k}}$ & -95 & 90 & 95 & 95 & -100 & 95 & -95 & 85 & -95 & -100\\
+$\boldsymbol{\beta_{k}}$ & 185 & -195 & 190 & 185 & -190 & 185 & 195 & -190 & 100 & 185\\
+\hline
+\hline
+$\boldsymbol{k}$ & \bf{11} & \bf{12} & \bf{13} & \bf{14} & \bf{15} & \bf{16} & \bf{17} & \bf{18} & \bf{19} & \bf{20} \\
+\hline
+$\boldsymbol{\alpha_{k}}$ & -2.75 & 3.25 & -3.50 & 2.50 & -3.75 & 3.00 & -3.25 & 2.75 & 3.00 & 3.50\\
+$\boldsymbol{\beta_{k}}$ & 3.25 & -2.50 & 3.75 & -3.00 & 3.50 & -2.75 & 3.75 & -3.25 & 3.25 & -2.75\\
+\hline
+\hline
+$\boldsymbol{k}$ & \bf{21} & \bf{22} & \bf{23} & \bf{24} & \bf{25} & \bf{26} & \bf{27} & \bf{28} & \bf{29} & \bf{30} \\
+\hline
+$\boldsymbol{\alpha_{k}}$  & -0.875 & 0.625 & -0.375 & -0.25 & 0.50 & -0.875 & 0.125 & -1.125 & 0.375 &-0.25\\
+$\boldsymbol{\beta_{k}}$  & 0.375 & -0.625 & 0.625 & -1.125 & 0.75 & 0.25 & -0.50 & 0.375 & -0.625 & 0.75\\
+\hline
+\hline
+$\boldsymbol{k}$& \bf{31} & \bf{32} & \bf{33} & \bf{34} & \bf{35} & \bf{36} & \bf{37} & \bf{38} & \bf{39} & \bf{40} \\
+\hline
+$\boldsymbol{\alpha_{k}}$ & 25 & 25 & 25 & 25 & 25 & 25 & 25 & 25 & 25 & 25\\
+$\boldsymbol{\beta_{k}}$ & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+\hline
+\hline
+$\boldsymbol{k}$ & \bf{41} & \bf{42} & \bf{43} & \bf{44} & \bf{45} & \bf{46} & \bf{47} & \bf{48} & \bf{49} & \bf{50} \\
+\hline
+$\boldsymbol{\alpha_{k}}$  & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+$\boldsymbol{\beta_{k}}$  & 45 & 45 & 45 & 45 & 45 & 45 & 45 & 45 & 45 & 45\\
+\hline
+\end{tabular}\caption{
+Values of $\alpha_k$ and $\beta_k$ for $k=1,\ldots,50$. For $k=51,\ldots,500$, $\alpha_k=\beta_k=0$.} \label{grand_param}
+\end{table}
+
+
+# First Step
+
+Before using the function mahi we have to choose a value for lambda using lambdaChoice function. We have to set a max for lambda with lambdamax. The returned value is less than lambdamax and allows you to select a mediator number between selectedMin and selectedMax. The value of selectedMax must be less than or equal to the number of individuals n. If the value of lambdamax is not high enough, a new lambdamax is test by adding 50 to previous value. 
 
 ```{r}
-datahigh=simdatasets[[1]]
-n=dim(datahigh)[1] #sample number
-P=1 #number of treatment
-treatment=matrix(datahigh$X,n,P)
-mediators=as.matrix(datahigh[,paste0("M", 1:p)])
-outcome=datahigh$Y
-
-
-  lambda <- lambdaChoice(datahigh,name.exposure="X",name.outcome="Y",name.mediators=paste0("M", 1:p),lambdamax=10,selectedMin=n/2,selectedMax=n,L0=.1,eta=2,tau=1/P,epsilon=.001)
-
-```
-
-You have to choose a greater value, for example here 300.
-```{r}
-lambda <- lambdaChoice(datahigh,name.exposure="X",name.outcome="Y",name.mediators=paste0("M", 1:p),lambdamax=500,selectedMin=n/2,selectedMax=n,L0=.1,eta=2,tau=1/P,epsilon=.001)
-lambda
+lambda <- lambdaChoice(data_cont,name.exposure="Exposure",name.outcome="Outcome",name.mediators=paste0("M", 1:500),lambdamax=30600,selectedMin=50,selectedMax=100)
 ```
 
 Now you can use the mahi function for the selection
 ```{r,include=FALSE}
-  mahifit <- mahi(data=datahigh,name.exposure="X",name.outcome="Y",name.mediators=paste0("M", 1:p),
-                   lambda=lambda,Nboot=30,L0=.1,eta=2,tau=1/P,epsilon=.001,
-                   Kmax=NULL,bin=FALSE,
-                   step2=TRUE,p.adjust.method="hochberg",pvalseuil=0.05)
+  mahifit <- mahi(data=data_cont,name.exposure="Exposure",name.outcome="Outcome",name.mediators=paste0("M", 1:500),
+                   lambda=lambda,Nboot=30,L0=.1,eta=2,epsilon=.001,
+                   Kmax=30,bin=FALSE,
+                   dostep2=TRUE,p.adjust.method="hochberg",pvalseuil=0.05)
 ```
 
 ```{r,eval=FALSE}
-  mahifit <- mahi(data=datahigh,name.exposure="X",name.outcome="Y",name.mediators=paste0("M", 1:p),
-                   lambda=lambda,Nboot=30,L0=.1,eta=2,tau=1/P,epsilon=.001,
-                   Kmax=NULL,bin=FALSE,
-                   step2=TRUE,p.adjust.method="hochberg",pvalseuil=0.05)
+  mahifit <- mahi(data=data_cont,name.exposure="Exposure",name.outcome="Outcome",name.mediators=paste0("M", 1:500),
+                   lambda=lambda,Nboot=30,L0=.1,eta=2,epsilon=.001,
+                   Kmax=30,bin=FALSE,
+                   dostep2=TRUE,p.adjust.method="hochberg",pvalseuil=0.05)
 ```
 
 
@@ -168,8 +147,5 @@ It is then possible to make another correction for a multiple test with the medi
 
 To see the mediators selected after step 2 you can use these lines of codes.
 ```{r}
-mahifit$selection
-
-mahiselection <- as.vector(which(mahifit$selection != FALSE))
-mahiselection
+mahifit$step2
 ```
