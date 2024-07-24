@@ -30,6 +30,59 @@
 #' @importFrom utils setTxtProgressBar
 #' @import stats
 #' @import multimediate
+#'
+#' @examples
+#' # example code
+#'
+#' #data(data_cont)
+#'
+#' #lambda <- lambdaChoice(data_cont,name.exposure="Exposure",name.outcome=
+#' #"Outcome",name.mediators=paste0("M", 1:500),lambdamax=30600,selectedMin=50,
+#' #selectedMax=100)
+#'
+#' #mahifit <- mahi(data=data_cont,name.exposure="Exposure",name.outcome=
+#' #"Outcome",name.mediators=paste0("M", 1:500),
+#' #lambda=lambda,Nboot=30,L0=.1,eta=2,epsilon=.001, Kmax=30,bin=FALSE,
+#' #dostep2=TRUE,p.adjust.method="hochberg",pvalseuil=0.05)
+#'
+#' ##The function mahi returns a list containing several results such as the
+#' ## mediators selected in the first step.
+#' #summary(mahifit)
+#'
+#' ##To see the mediators selected after the step 1, use :
+#' #   mahifit$Kmaxrank
+#'
+#' ## Remember that the first 30 candidates are the real mediators. The first
+#' ## 10 (1 to 10) have a strong mediated effect, the next 10 (11 to 20) have a
+#' ## medium mediated effect, and the other 10 (21 to 30) have a very
+#' ## weak effect.
+#'
+#' ##To see the mediators count for each mediator after the stability selection
+#' ## (step 1), use :
+#' #  mahifit$bootcount
+#'
+#' ##To see the ranking after the stability selection (step 1), use :
+#' #mahifit$ranking
+#'
+#' ##To see the results of the multiple analysis with mediators selected at
+#' ## the step 1, use :
+#' #summary(mahifit$multimed)
+#'
+#' ## You can see the p-value in the previous table or use :
+#' #   mahifit$pvals
+#'
+#' ## The corrected p-value for the multiple test obtained with method given
+#' ## can be disp with :
+#' #mahifit$pvalscorr
+#'
+#' ##It is then possible to make another correction for a multiple test with the
+#' ## mediators selected in step 1.
+#' ##To see the mediators selected after step 2 you can use these lines of
+#' # codes.
+#'
+#' #mahifit$step2
+
+
 
 
 mahi=function(data,name.exposure,name.outcome,name.mediators,name.covariables=NULL,lambda=NULL,Nboot=100,L0=.1,eta=2,weights=NULL,groups=NULL,epsilon=.001,Kmax=NULL,bin=FALSE,dostep2=FALSE,p.adjust.method="bonferroni",pvalseuil=0.05){
@@ -47,7 +100,7 @@ mahi=function(data,name.exposure,name.outcome,name.mediators,name.covariables=NU
   if(is.null(weights)){
     weights=c()
     weights$med=rep(1/P,K)
-    weights$out=1:8
+    weights$out=1
   }
 
   if(is.null(lambda)){
