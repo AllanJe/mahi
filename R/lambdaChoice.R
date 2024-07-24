@@ -21,6 +21,7 @@
 #'
 #' @importFrom utils txtProgressBar
 #' @importFrom utils setTxtProgressBar
+#'
 
 
 lambdaChoice <- function(data,name.exposure,name.outcome,name.mediators,name.covariables=NULL,weights=NULL,groups=NULL,lambdamax=50,N1=10,selectedMin=.3*length(outcome),selectedMax=.6*length(outcome),L0=1,eta=2,epsilon=.001){
@@ -45,7 +46,7 @@ lambdaChoice <- function(data,name.exposure,name.outcome,name.mediators,name.cov
   if(is.null(weights)){
     weights=c()
     weights$med=rep(1/P,K)
-    weights$out=1:8
+    weights$out=1
   }
   NwY=length(weights$out)
   lambdaout=c()
