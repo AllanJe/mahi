@@ -6,6 +6,7 @@ sim_multi=function(n=1000, NM=3,
                    binaryOutcome = FALSE,
                    coeff, correlation=c(0.9,0.6,0.3),
                    covariables){
+
   Treatment=sample(0:1,n,replace=TRUE)
   data=data.frame(Intercept=1,Treatment=Treatment)
 
@@ -99,11 +100,11 @@ for (i in 1:dim(nuplet)[1]){
   transct=cf.data[,paste(nmed,Valuev[i],sep=".")]
   if (binaryOutcome==TRUE){
     Yerror <- stats::rlogis(n,0,1)
-    cf.data[,paste("Y",Valuev[i],sep=".")]=apply(coeff[NM+1,]*t(cbind(nuplet[i,],transct)),2,sum)+Yerror>0
+    cf.data[,paste("Y",Valuev[i],sep=".")]=apply(as.matrix(coeff[NM+1,])%*%t(cbind(nuplet[i,],transct)),2,sum)+Yerror>0
   }
   else{
     Yerror <- stats::rnorm(n,0,1)
-    cf.data[,paste("Y",Valuev[i],sep=".")]=apply(coeff[NM+1,]*t(cbind(nuplet[i,],transct)),2,sum)+Yerror
+    cf.data[,paste("Y",Valuev[i],sep=".")]=apply(as.matrix(coeff[NM+1,])%*%t(cbind(nuplet[i,],transct)),2,sum)+Yerror
   }
 
 }
