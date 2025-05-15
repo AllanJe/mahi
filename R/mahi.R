@@ -140,19 +140,22 @@ mahi=function(data,name.exposure,name.outcome,name.mediators,name.covariables=NU
   close(pb)
   #select_seuil=unique(select_seuil)
 
-  maxcount = apply(bootcount,2,max)
-  ranking.id=order(maxcount ,decreasing = TRUE)
+  #maxcount = apply(bootcount,2,max)
+  sumcount = colSums(bootcount)
+  ranking.id=order(sumcount, decreasing = TRUE)
   ranking=name.mediators[ranking.id]
   Kmaxrank= ranking[1:Kmax]
 
-  pvaleur=stats::pbinom(maxcount, Nboot, 0.25, lower.tail = FALSE, log.p = FALSE)
+  # pvaleur = stats::pbinom(maxcount, Nboot, 0.25, lower.tail = FALSE, log.p = FALSE)
+  # step1 = data.frame(Mediators=name.mediators,Pvalue=as.numeric(pvaleur),Maxcount=maxcount)
+  # step1 = step1[order(step1$Pvalue,decreasing = FALSE),]
 
-  step1=data.frame(Mediators=name.mediators,Pvalue=as.numeric(pvaleur),Maxcount=maxcount)
+  step1 = data.frame(Mediators=name.mediators, Sumcount=sumcount)
+  step1 = step1[order(step1$Sumcount, decreasing = FALSE),]
 
-  step1=step1[order(step1$Pvalue,decreasing = FALSE),]
   if(!dostep2){
-    out=list(step1=step1,ranking=ranking,ranking.id=ranking.id,bootcount=bootcount,bootstep=bootstep,
-             n=n,K=K,Kmax=Kmax,lambda=lambda)
+    out=list(step1=step1, ranking=ranking, ranking.id=ranking.id, bootcount=bootcount, bootstep=bootstep,
+             n=n, K=K, Kmax=Kmax, lambda=lambda)
   }
   else{ print("Step 2: Multiple test on indirect effects")
     step2=rep(FALSE,K)
@@ -193,8 +196,6 @@ mahi=function(data,name.exposure,name.outcome,name.mediators,name.covariables=NU
     selmed2=apply(selmed1,1,sum)
     selmed3=Kmaxrank[selmed2==P]
     step2[which(name.mediators %in% selmed3)]=TRUE
-
-
 
 
     if(P>1){
