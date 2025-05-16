@@ -138,9 +138,9 @@ mahi=function(data,name.exposure,name.outcome,name.mediators,name.covariables=NU
     utils::setTxtProgressBar(pb, i)
   }
   close(pb)
-  #select_seuil=unique(select_seuil)
+  # select_seuil=unique(select_seuil)
 
-  #maxcount = apply(bootcount,2,max)
+  # maxcount = apply(bootcount,2,max)
   sumcount = colSums(bootcount)
   ranking.id=order(sumcount, decreasing = TRUE)
   ranking=name.mediators[ranking.id]
@@ -151,7 +151,7 @@ mahi=function(data,name.exposure,name.outcome,name.mediators,name.covariables=NU
   # step1 = step1[order(step1$Pvalue,decreasing = FALSE),]
 
   step1 = data.frame(Mediators=name.mediators, Sumcount=sumcount)
-  step1 = step1[order(step1$Sumcount, decreasing = FALSE),]
+  step1 = step1[order(step1$Sumcount, decreasing = TRUE),]
 
   if(!dostep2){
     out=list(step1=step1, ranking=ranking, ranking.id=ranking.id, bootcount=bootcount, bootstep=bootstep,
@@ -163,14 +163,14 @@ mahi=function(data,name.exposure,name.outcome,name.mediators,name.covariables=NU
       step2byt=array(FALSE,dim=c(K,P))
 
     }
-    multimed =pvals=pvalscorr=list()
-    pvalsbytreat=matrix(NA,Kmax,P)
+    multimed = pvals = pvalscorr = list()
+    pvalsbytreat = matrix(NA,Kmax,P)
     for(p in 1:P){
-      lmodel.m=list()
-      medforout=""
+      lmodel.m = list()
+      medforout = ""
       for(medch in Kmaxrank){
         lmodel.m[[medch]] = stats::lm(stats::formula(paste( medch,"~",name.exposure[p])), data = data)
-        medforout=paste(medforout,medch,sep=" + ")
+        medforout = paste(medforout,medch,sep=" + ")
       }
       formout1 = paste(name.outcome,"~",name.exposure[p])
       if(bin){
